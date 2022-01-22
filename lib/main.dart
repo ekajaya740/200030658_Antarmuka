@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rpl_ekajaya/constants/routes.dart';
 import 'package:rpl_ekajaya/screens/login_screen.dart';
 import 'package:rpl_ekajaya/screens/main_screen.dart';
 import 'package:rpl_ekajaya/screens/register_screen.dart';
@@ -43,8 +44,8 @@ class MyApp extends StatelessWidget {
         ),
         padding: MaterialStateProperty.all(
           const EdgeInsets.symmetric(
-            vertical: 24,
-            horizontal: 24,
+            vertical: 8,
+            horizontal: 8,
           ),
         ),
         backgroundColor: MaterialStateProperty.all(
@@ -59,7 +60,7 @@ class MyApp extends StatelessWidget {
         textStyle: MaterialStateProperty.all(
           GoogleFonts.roboto(
             textStyle: const TextStyle(
-              fontSize: 24,
+              fontSize: 16,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -72,7 +73,7 @@ class MyApp extends StatelessWidget {
         textStyle: MaterialStateProperty.all(
           GoogleFonts.roboto(
             textStyle: TextStyle(
-              fontSize: 24,
+              fontSize: 16,
               fontWeight: FontWeight.w700,
               color: Colors.green.shade900,
             ),
@@ -85,7 +86,7 @@ class MyApp extends StatelessWidget {
       final _border = OutlineInputBorder(
         borderSide: BorderSide(
           color: Colors.green.shade900,
-          width: 2,
+          width: 1,
         ),
         borderRadius: BorderRadius.circular(10),
       );
@@ -94,7 +95,7 @@ class MyApp extends StatelessWidget {
         border: _border,
         labelStyle: GoogleFonts.roboto(
           textStyle: const TextStyle(
-            fontSize: 24,
+            fontSize: 16,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -122,10 +123,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
       ),
       routes: {
-        // '/': (context) => const LoginScreen(),
-        '/': (context) => const MainScreen(isPenjual: false),
-        '/register': (context) => const RegisterScreen(),
-        '/main_pembeli': (context) => const MainScreen(isPenjual: false),
+        // rootRoute: (context) => const LoginScreen(),
+        rootRoute: (context) => const MainScreen(isPenjual: true),
+        registerRoute: (context) => const RegisterScreen(),
+        mainPembeliRoute: (context) => const MainScreen(isPenjual: false),
+        mainPenjualRoute: (context) => const MainScreen(isPenjual: true),
       },
     );
   }

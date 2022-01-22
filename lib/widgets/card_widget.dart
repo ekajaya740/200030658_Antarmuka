@@ -6,6 +6,7 @@ class CardWidget extends StatelessWidget {
   final String nama;
   final String kategori;
   final String harga;
+  final Widget? button;
 
   CardWidget({
     Key? key,
@@ -13,18 +14,23 @@ class CardWidget extends StatelessWidget {
     required this.nama,
     required this.kategori,
     required this.harga,
+    this.button,
   });
 
   @override
   Widget build(BuildContext context) {
-    final _cardTitleTextStyle = TextStyle(
+    const _cardTitleTextStyle = TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
       color: Colors.white,
     );
-    final _cardKategoriTextStyle = TextStyle(
+    const _cardKategoriTextStyle = TextStyle(
       color: Colors.white,
     );
-    final _cardHargaTextStyle = TextStyle(
-      color: Colors.white,
+    const _cardHargaTextStyle = TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.bold,
+      color: Colors.yellow,
     );
 
     return Card(
@@ -35,11 +41,19 @@ class CardWidget extends StatelessWidget {
         children: [
           Align(
             alignment: Alignment.topCenter,
-            child: Image.network(image),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.network(
+                image,
+                height: 100,
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(10),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   nama,
@@ -56,6 +70,7 @@ class CardWidget extends StatelessWidget {
               ],
             ),
           ),
+          button ?? const SizedBox(),
         ],
       ),
     );
