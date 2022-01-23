@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rpl_ekajaya/constants/routes.dart';
 
 class RegisterScreen extends StatelessWidget {
   static const _logoStr = "assets/images/app_logo.png";
@@ -10,8 +11,7 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _mediaQueryH = MediaQuery.of(context).size.height;
-    final _mediaQueryW = MediaQuery.of(context).size.width;
+    final double _mediaQueryH = MediaQuery.of(context).size.height;
 
     final _textFormFieldTextStyle = GoogleFonts.roboto(
       textStyle: const TextStyle(
@@ -20,10 +20,14 @@ class RegisterScreen extends StatelessWidget {
         fontSize: 24,
       ),
     );
+
     final _registerButton = ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushNamed(context, rootRoute);
+      },
       child: const Text("Register"),
     );
+
     final _loginButton = TextButton(
       onPressed: () {
         Navigator.pushNamed(context, '/');
@@ -35,6 +39,7 @@ class RegisterScreen extends StatelessWidget {
         ),
       ),
     );
+
     TextFormField _textFormField({
       String? hint,
       bool? obscure,

@@ -1,30 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rpl_ekajaya/constants/padding.dart';
+import 'package:rpl_ekajaya/constants/routes.dart';
 import 'package:rpl_ekajaya/data/barang_data.dart';
+import 'package:rpl_ekajaya/data/pengguna_data.dart';
+import 'package:rpl_ekajaya/screens/beli_screen.dart';
 import 'package:rpl_ekajaya/widgets/barang_card_widget.dart';
 
+
 class MainScreen extends StatelessWidget {
+  bool isDelete = false;
   final bool isPenjual;
-  const MainScreen({Key? key, required this.isPenjual}) : super(key: key);
+  MainScreen({
+    Key? key,
+    required this.isPenjual,
+  }) : super(
+          key: key,
+        );
 
   @override
   Widget build(BuildContext context) {
-    final _search = TextField(
-      decoration: InputDecoration(
-        suffixIcon: Icon(
-          Icons.search,
-          color: Colors.green.shade900,
-        ),
-        hintText: "Cari Barang",
-        hintStyle: TextStyle(
-          fontWeight: FontWeight.w500,
-          color: Colors.green.shade900,
-          fontSize: 18,
-        ),
-      ),
-    );
-
     Widget _button({
       required String type,
       required void Function()? onPressed,
@@ -51,9 +46,11 @@ class MainScreen extends StatelessWidget {
       PopupMenuItem<int> _popUpMenuItem({
         required IconData icon,
         required String text,
+        required int value,
         void Function()? onTap,
       }) {
         return PopupMenuItem<int>(
+          value: value,
           onTap: onTap,
           child: Row(
             children: [
@@ -61,7 +58,7 @@ class MainScreen extends StatelessWidget {
                 icon,
                 color: Colors.green.shade900,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 4,
               ),
               Text(
@@ -84,26 +81,56 @@ class MainScreen extends StatelessWidget {
         ),
         actions: [
           PopupMenuButton(
+            onSelected: (res) {
+              switch (res) {
+                case 0:
+                  Navigator.pushNamed(context, daftarTransaksiRoute);
+                  break;
+                case 1:
+                  break;
+                case 2:
+                  Navigator.pushNamed(context, tambahBarangRoute);
+                  break;
+              }
+            },
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
             color: Colors.white,
             itemBuilder: (context) => [
               _popUpMenuItem(
+                value: 0,
                 icon: Icons.assignment_outlined,
                 text: "Daftar Transaksi",
               ),
               _popUpMenuItem(
+                value: 1,
                 icon: Icons.edit_rounded,
                 text: "Edit",
               ),
               _popUpMenuItem(
+                value: 2,
                 icon: Icons.add_rounded,
                 text: "Tambah Barang",
               ),
             ],
           ),
         ],
+      );
+      final _search = TextField(
+        decoration: InputDecoration(
+          suffixIcon: Icon(
+            Icons.search,
+            color: Colors.green.shade900,
+          ),
+          hintText: "Cari Barang",
+          hintStyle: TextStyle(
+            fontWeight: FontWeight.w500,
+            color: Colors.green.shade900,
+            fontSize: 18,
+          ),
+        ),
+        onTap: () {},
       );
 
       return Scaffold(
@@ -171,6 +198,21 @@ class MainScreen extends StatelessWidget {
           onPressed: () {},
         ),
       );
+      final _search = TextField(
+        decoration: InputDecoration(
+          suffixIcon: Icon(
+            Icons.search,
+            color: Colors.green.shade900,
+          ),
+          hintText: "Cari Barang",
+          hintStyle: TextStyle(
+            fontWeight: FontWeight.w500,
+            color: Colors.green.shade900,
+            fontSize: 18,
+          ),
+        ),
+        onTap: () {},
+      );
 
       return Scaffold(
         appBar: _appBar,
@@ -212,7 +254,18 @@ class MainScreen extends StatelessWidget {
                         kategori: dataBarang[index].kategori,
                         button: _button(
                           type: 'Beli Barang',
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BeliScreen(
+                                  namaBarang: dataBarang[index].nama,
+                                  hargaBarang: dataBarang[index].harga,
+                                  alamat: myData.alamat,
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
                       itemCount: dataBarang.length,

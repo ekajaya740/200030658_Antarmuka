@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class BarangCardWidget extends StatelessWidget {
   final String image;
   final String nama;
   final String kategori;
-  final String harga;
+  final int harga;
   final Widget? button;
 
   BarangCardWidget({
@@ -19,6 +20,7 @@ class BarangCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     const _cardTitleTextStyle = TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.bold,
@@ -42,10 +44,13 @@ class BarangCardWidget extends StatelessWidget {
           Align(
             alignment: Alignment.topCenter,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(10),
+              ),
               child: Image.network(
                 image,
                 height: 100,
+                width: double.infinity,
                 fit: BoxFit.cover,
               ),
             ),
@@ -64,7 +69,7 @@ class BarangCardWidget extends StatelessWidget {
                   style: _cardKategoriTextStyle,
                 ),
                 Text(
-                  harga,
+                  'Rp$harga',
                   style: _cardHargaTextStyle,
                 ),
               ],

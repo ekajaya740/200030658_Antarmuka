@@ -5,6 +5,7 @@ import 'package:rpl_ekajaya/screens/daftar_transaksi_screen.dart';
 import 'package:rpl_ekajaya/screens/login_screen.dart';
 import 'package:rpl_ekajaya/screens/main_screen.dart';
 import 'package:rpl_ekajaya/screens/register_screen.dart';
+import 'package:rpl_ekajaya/screens/tambah_barang_screen.dart';
 
 void main() {
   runApp(
@@ -96,7 +97,7 @@ class MyApp extends StatelessWidget {
         border: _border,
         labelStyle: GoogleFonts.roboto(
           textStyle: const TextStyle(
-            fontSize: 16,
+            fontSize: 12,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -125,11 +126,12 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         // rootRoute: (context) => const LoginScreen(),
-        rootRoute: (context) => const DaftarTransaksiScreen(),
+        rootRoute: (context) => MainScreen(isPenjual: true),
         registerRoute: (context) => const RegisterScreen(),
-        mainPembeliRoute: (context) => const MainScreen(isPenjual: false),
-        mainPenjualRoute: (context) => const MainScreen(isPenjual: true),
+        mainPembeliRoute: (context) => MainScreen(isPenjual: false),
+        mainPenjualRoute: (context) => MainScreen(isPenjual: true),
         daftarTransaksiRoute: (context) => const DaftarTransaksiScreen(),
+        tambahBarangRoute: (context) => const TambahBarangScreen(),
       },
     );
   }
