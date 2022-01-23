@@ -3,18 +3,49 @@ import 'package:flutter/material.dart';
 import 'package:rpl_ekajaya/constants/padding.dart';
 import 'package:rpl_ekajaya/constants/routes.dart';
 
-class TambahBarangScreen extends StatefulWidget {
-  const TambahBarangScreen({
+class UbahBarangScreen extends StatefulWidget {
+  final String namaBarang;
+  final int hargaBarang;
+  final dynamic kategoriBarang;
+  final int stokBarang;
+  final String fotoBarang;
+
+  const UbahBarangScreen({
     Key? key,
+    required this.namaBarang,
+    required this.hargaBarang,
+    required this.kategoriBarang,
+    required this.stokBarang,
+    required this.fotoBarang,
   }) : super(
           key: key,
         );
 
   @override
-  State<StatefulWidget> createState() => _TambahBarangScreen();
+  State<StatefulWidget> createState() => _UbahBarangScreen(
+        namaBarang: namaBarang,
+        hargaBarang: hargaBarang,
+        kategoriBarang: kategoriBarang,
+        stokBarang: stokBarang,
+        fotoBarang: fotoBarang,
+      );
 }
 
-class _TambahBarangScreen extends State<TambahBarangScreen> {
+class _UbahBarangScreen extends State<UbahBarangScreen> {
+  final String namaBarang;
+  final int hargaBarang;
+  final dynamic kategoriBarang;
+  final int stokBarang;
+  final String fotoBarang;
+
+  _UbahBarangScreen({
+    required this.namaBarang,
+    required this.hargaBarang,
+    required this.kategoriBarang,
+    required this.stokBarang,
+    required this.fotoBarang,
+  });
+
   final List _kategori = ['Logam', 'Plastik', 'Kaca', 'Karet'];
 
   dynamic _initialDropDownValue;
@@ -25,7 +56,7 @@ class _TambahBarangScreen extends State<TambahBarangScreen> {
 
   @override
   void initState() {
-    _initialDropDownValue = _kategori[0];
+    _initialDropDownValue = kategoriBarang;
     _namaController = TextEditingController();
     _hargaController = TextEditingController();
     _stokController = TextEditingController();
@@ -37,7 +68,7 @@ class _TambahBarangScreen extends State<TambahBarangScreen> {
     final _mediaQueryH = MediaQuery.of(context).size.height;
 
     final _appBar = AppBar(
-      title: const Text("Tambah Barang"),
+      title: const Text("Ubah Barang"),
       automaticallyImplyLeading: false,
     );
 
@@ -65,15 +96,14 @@ class _TambahBarangScreen extends State<TambahBarangScreen> {
                               height: 16,
                             ),
                             TextFormField(
-                              decoration: const InputDecoration(
-                                  hintText: 'Nama Barang'),
+                              decoration: InputDecoration(hintText: namaBarang),
                             ),
                             const SizedBox(
                               height: 8,
                             ),
                             TextFormField(
-                              decoration: const InputDecoration(
-                                  hintText: 'Harga Barang'),
+                              decoration:
+                                  InputDecoration(hintText: 'Rp$hargaBarang'),
                             ),
                             const SizedBox(
                               height: 8,
@@ -117,8 +147,8 @@ class _TambahBarangScreen extends State<TambahBarangScreen> {
                             ),
                             TextFormField(
                               keyboardType: TextInputType.number,
-                              decoration: const InputDecoration(
-                                  hintText: 'Stok Barang'),
+                              decoration:
+                                  InputDecoration(hintText: '$stokBarang'),
                             ),
                             const SizedBox(
                               height: 8,
@@ -132,8 +162,20 @@ class _TambahBarangScreen extends State<TambahBarangScreen> {
                                     color: Colors.green.shade900,
                                   ),
                                 ),
-                                child: const Center(
-                                  child: Text("Upload Foto"),
+                                child: Center(
+                                  child: Stack(
+                                    alignment: AlignmentDirectional.center,
+                                    children: [
+                                      Image.network(
+                                        fotoBarang,
+                                        fit: BoxFit.fill,
+                                      ),
+                                      const Text('Ubah Foto Barang',
+                                          style: TextStyle(
+                                              backgroundColor: Colors.white,
+                                              color: Colors.black))
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

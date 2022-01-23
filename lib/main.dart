@@ -6,6 +6,7 @@ import 'package:rpl_ekajaya/screens/login_screen.dart';
 import 'package:rpl_ekajaya/screens/main_screen.dart';
 import 'package:rpl_ekajaya/screens/register_screen.dart';
 import 'package:rpl_ekajaya/screens/tambah_barang_screen.dart';
+import 'package:rpl_ekajaya/screens/ubah_barang_screen.dart';
 
 void main() {
   runApp(
@@ -126,10 +127,10 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         // rootRoute: (context) => const LoginScreen(),
-        rootRoute: (context) => MainScreen(isPenjual: true),
+        rootRoute: (context) => const MainScreen(isPenjual: true),
         registerRoute: (context) => const RegisterScreen(),
-        mainPembeliRoute: (context) => MainScreen(isPenjual: false),
-        mainPenjualRoute: (context) => MainScreen(isPenjual: true),
+        mainPembeliRoute: (context) => const MainScreen(isPenjual: false),
+        mainPenjualRoute: (context) => const MainScreen(isPenjual: true),
         daftarTransaksiRoute: (context) => const DaftarTransaksiScreen(),
         tambahBarangRoute: (context) => const TambahBarangScreen(),
       },

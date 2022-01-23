@@ -5,34 +5,15 @@ import 'package:rpl_ekajaya/constants/routes.dart';
 import 'package:rpl_ekajaya/data/barang_data.dart';
 import 'package:rpl_ekajaya/data/pengguna_data.dart';
 import 'package:rpl_ekajaya/screens/beli_screen.dart';
-import 'package:rpl_ekajaya/screens/cari_barang_screen.dart';
 import 'package:rpl_ekajaya/screens/ubah_barang_screen.dart';
 import 'package:rpl_ekajaya/widgets/barang_card_widget.dart';
 
-class MainScreen extends StatefulWidget {
-  final bool isPenjual;
-  const MainScreen({
-    Key? key,
-    required this.isPenjual,
-  }) : super(
-          key: key,
-        );
-
-  @override
-  State<MainScreen> createState() => _MainScreenState(
-        isPenjual: isPenjual,
-      );
-}
-
-class _MainScreenState extends State<MainScreen> {
-  bool _isDelete = false;
-
+class CariBarangScreen extends StatelessWidget {
   final bool isPenjual;
 
-  _MainScreenState({
+  CariBarangScreen({
     required this.isPenjual,
   });
-
   @override
   Widget build(BuildContext context) {
     Widget _button({
@@ -58,99 +39,8 @@ class _MainScreenState extends State<MainScreen> {
     }
 
     Widget _penjualPage() {
-      PopupMenuItem<int> _popUpMenuItem({
-        required IconData icon,
-        required String text,
-        required int value,
-        void Function()? onTap,
-      }) {
-        return PopupMenuItem<int>(
-          value: value,
-          onTap: onTap,
-          child: Row(
-            children: [
-              Icon(
-                icon,
-                color: Colors.green.shade900,
-              ),
-              const SizedBox(
-                width: 4,
-              ),
-              Text(
-                text,
-                style: TextStyle(color: Colors.green.shade900),
-              ),
-            ],
-          ),
-        );
-      }
-
-      final _appBar = AppBar(
-        title: Text(_isDelete ? 'Hapus Data Barang' : 'Data Barang'),
-        centerTitle: _isDelete ? false : true,
-        leading: _isDelete
-            ? null
-            : IconButton(
-                icon: const Icon(
-                  Icons.account_circle,
-                ),
-                onPressed: () {},
-              ),
-        actions: _isDelete
-            ? [
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      _isDelete = false;
-                    });
-                  },
-                  icon: const Icon(
-                    Icons.save_rounded,
-                  ),
-                ),
-              ]
-            : [
-                PopupMenuButton(
-                  onSelected: (res) {
-                    switch (res) {
-                      case 0:
-                        Navigator.pushNamed(context, daftarTransaksiRoute);
-                        break;
-                      case 1:
-                        setState(() {
-                          _isDelete = true;
-                        });
-                        break;
-                      case 2:
-                        Navigator.pushNamed(context, tambahBarangRoute);
-                        break;
-                    }
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  color: Colors.white,
-                  itemBuilder: (context) => [
-                    _popUpMenuItem(
-                      value: 0,
-                      icon: Icons.assignment_outlined,
-                      text: "Daftar Transaksi",
-                    ),
-                    _popUpMenuItem(
-                      value: 1,
-                      icon: Icons.edit_rounded,
-                      text: "Hapus Barang",
-                    ),
-                    _popUpMenuItem(
-                      value: 2,
-                      icon: Icons.add_rounded,
-                      text: "Tambah Barang",
-                    ),
-                  ],
-                ),
-              ],
-      );
       final _search = TextField(
+        autofocus: true,
         decoration: InputDecoration(
           suffixIcon: Icon(
             Icons.search,
@@ -163,16 +53,10 @@ class _MainScreenState extends State<MainScreen> {
             fontSize: 18,
           ),
         ),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => CariBarangScreen(
-                isPenjual: isPenjual,
-              ),
-            ),
-          );
-        },
+      );
+      final _appBar = AppBar(
+        title: Text('Cari Barang'),
+        centerTitle: true,
       );
 
       return Scaffold(
@@ -229,7 +113,7 @@ class _MainScreenState extends State<MainScreen> {
                           );
                         },
                       ),
-                      isVisible: _isDelete,
+                      isVisible: false,
                     ),
                     itemCount: dataBarang.length,
                   ),
@@ -242,17 +126,8 @@ class _MainScreenState extends State<MainScreen> {
     }
 
     Widget _pembeliPage() {
-      final _appBar = AppBar(
-        title: const Text("Recycle Shop"),
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.account_circle,
-          ),
-          onPressed: () {},
-        ),
-      );
       final _search = TextField(
+        autofocus: true,
         decoration: InputDecoration(
           suffixIcon: Icon(
             Icons.search,
@@ -265,14 +140,10 @@ class _MainScreenState extends State<MainScreen> {
             fontSize: 18,
           ),
         ),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => CariBarangScreen(isPenjual: isPenjual),
-            ),
-          );
-        },
+      );
+      final _appBar = AppBar(
+        title: Text('Cari Barang'),
+        centerTitle: true,
       );
 
       return Scaffold(
@@ -328,7 +199,7 @@ class _MainScreenState extends State<MainScreen> {
                             );
                           },
                         ),
-                        isVisible: _isDelete,
+                        isVisible: false,
                       ),
                       itemCount: dataBarang.length,
                     ),
@@ -341,7 +212,7 @@ class _MainScreenState extends State<MainScreen> {
       );
     }
 
-    if (widget.isPenjual) {
+    if (isPenjual) {
       return _penjualPage();
     } else {
       return _pembeliPage();

@@ -8,6 +8,7 @@ class BarangCardWidget extends StatelessWidget {
   final String kategori;
   final int harga;
   final Widget? button;
+  final bool isVisible;
 
   BarangCardWidget({
     Key? key,
@@ -16,11 +17,11 @@ class BarangCardWidget extends StatelessWidget {
     required this.kategori,
     required this.harga,
     this.button,
+    required this.isVisible,
   });
 
   @override
   Widget build(BuildContext context) {
-
     const _cardTitleTextStyle = TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.bold,
@@ -47,11 +48,37 @@ class BarangCardWidget extends StatelessWidget {
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(10),
               ),
-              child: Image.network(
-                image,
-                height: 100,
-                width: double.infinity,
-                fit: BoxFit.cover,
+              child: Stack(
+                alignment: AlignmentDirectional.topEnd,
+                children: [
+                  Image.network(
+                    image,
+                    height: 100,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                  Visibility(
+                    visible: isVisible,
+                    maintainState: isVisible,
+                    maintainAnimation: isVisible,
+                    maintainSize: isVisible,
+                    child: Container(
+                      margin: const EdgeInsets.only(
+                        top: 8,
+                        right: 8,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: Colors.amber,
+                      ),
+                      child: IconButton(
+                        icon: const Icon(Icons.delete_rounded,
+                            color: Colors.white),
+                        onPressed: () {},
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -75,7 +102,13 @@ class BarangCardWidget extends StatelessWidget {
               ],
             ),
           ),
-          button ?? const SizedBox(),
+          Visibility(
+            visible: !isVisible,
+            maintainAnimation: !isVisible,
+            maintainSize: !isVisible,
+            maintainState: !isVisible,
+            child: button ?? const SizedBox(),
+          )
         ],
       ),
     );
