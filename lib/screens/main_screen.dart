@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rpl_ekajaya/constants/padding.dart';
 import 'package:rpl_ekajaya/data/barang_data.dart';
-import 'package:rpl_ekajaya/widgets/card_widget.dart';
+import 'package:rpl_ekajaya/widgets/barang_card_widget.dart';
 
 class MainScreen extends StatelessWidget {
   final bool isPenjual;
-  static const _horizontalPadding = 16.0;
   const MainScreen({Key? key, required this.isPenjual}) : super(key: key);
 
   @override
@@ -36,6 +36,7 @@ class MainScreen extends StatelessWidget {
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             primary: Colors.amber,
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           ),
           onPressed: onPressed,
           child: Text(
@@ -47,9 +48,34 @@ class MainScreen extends StatelessWidget {
     }
 
     Widget _penjualPage() {
+      PopupMenuItem<int> _popUpMenuItem({
+        required IconData icon,
+        required String text,
+        void Function()? onTap,
+      }) {
+        return PopupMenuItem<int>(
+          onTap: onTap,
+          child: Row(
+            children: [
+              Icon(
+                icon,
+                color: Colors.green.shade900,
+              ),
+              SizedBox(
+                width: 4,
+              ),
+              Text(
+                text,
+                style: TextStyle(color: Colors.green.shade900),
+              ),
+            ],
+          ),
+        );
+      }
+
       final _appBar = AppBar(
         title: const Text("Data Barang"),
-        // centerTitle: true,
+        centerTitle: true,
         leading: IconButton(
           icon: const Icon(
             Icons.account_circle,
@@ -58,44 +84,22 @@ class MainScreen extends StatelessWidget {
         ),
         actions: [
           PopupMenuButton(
-            icon: const Icon(Icons
-                .more_vert_rounded), //don't specify icon if you want 3 dot menu
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            color: Colors.white,
             itemBuilder: (context) => [
-              PopupMenuItem<int>(
-                value: 0,
-                child: Row(
-                  children: [
-                    Icon(Icons.assignment_rounded),
-                    Text(
-                      "Daftar Transaksi",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
-                ),
+              _popUpMenuItem(
+                icon: Icons.assignment_outlined,
+                text: "Daftar Transaksi",
               ),
-              PopupMenuItem<int>(
-                value: 0,
-                child: Row(
-                  children: [
-                    Icon(Icons.edit_rounded),
-                    Text(
-                      "Edit",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
-                ),
+              _popUpMenuItem(
+                icon: Icons.edit_rounded,
+                text: "Edit",
               ),
-              PopupMenuItem<int>(
-                value: 0,
-                child: Row(
-                  children: [
-                    Icon(Icons.add_rounded),
-                    Text(
-                      "Tambah Barang",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
-                ),
+              _popUpMenuItem(
+                icon: Icons.add_rounded,
+                text: "Tambah Barang",
               ),
             ],
           ),
@@ -112,16 +116,16 @@ class MainScreen extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.fromLTRB(
-                    _horizontalPadding,
+                    horizontalPadding,
                     14,
-                    _horizontalPadding,
+                    horizontalPadding,
                     24,
                   ),
                   child: _search,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: _horizontalPadding,
+                    horizontal: horizontalPadding,
                   ),
                   child: Flexible(
                     child: GridView.builder(
@@ -135,17 +139,17 @@ class MainScreen extends StatelessWidget {
                         mainAxisExtent: 240,
                       ),
                       itemBuilder: (BuildContext context, int index) =>
-                          CardWidget(
-                        nama: data[index].nama,
-                        harga: data[index].harga,
-                        image: data[index].uriImage,
-                        kategori: data[index].kategori,
+                          BarangCardWidget(
+                        nama: dataBarang[index].nama,
+                        harga: dataBarang[index].harga,
+                        image: dataBarang[index].uriImage,
+                        kategori: dataBarang[index].kategori,
                         button: _button(
-                          type: 'Beli Barang',
+                          type: 'Ubah Barang',
                           onPressed: () {},
                         ),
                       ),
-                      itemCount: data.length,
+                      itemCount: dataBarang.length,
                     ),
                   ),
                 ),
@@ -178,16 +182,16 @@ class MainScreen extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.fromLTRB(
-                    _horizontalPadding,
+                    horizontalPadding,
                     14,
-                    _horizontalPadding,
+                    horizontalPadding,
                     24,
                   ),
                   child: _search,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: _horizontalPadding,
+                    horizontal: horizontalPadding,
                   ),
                   child: Flexible(
                     child: GridView.builder(
@@ -201,17 +205,17 @@ class MainScreen extends StatelessWidget {
                         mainAxisExtent: 240,
                       ),
                       itemBuilder: (BuildContext context, int index) =>
-                          CardWidget(
-                        nama: data[index].nama,
-                        harga: data[index].harga,
-                        image: data[index].uriImage,
-                        kategori: data[index].kategori,
+                          BarangCardWidget(
+                        nama: dataBarang[index].nama,
+                        harga: dataBarang[index].harga,
+                        image: dataBarang[index].uriImage,
+                        kategori: dataBarang[index].kategori,
                         button: _button(
                           type: 'Beli Barang',
                           onPressed: () {},
                         ),
                       ),
-                      itemCount: data.length,
+                      itemCount: dataBarang.length,
                     ),
                   ),
                 ),

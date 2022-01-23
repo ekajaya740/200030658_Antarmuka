@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CardWidget extends StatelessWidget {
+class BarangCardWidget extends StatelessWidget {
   final String image;
   final String nama;
   final String kategori;
   final String harga;
   final Widget? button;
 
-  CardWidget({
+  BarangCardWidget({
     Key? key,
     required this.image,
     required this.nama,

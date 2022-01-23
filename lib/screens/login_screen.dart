@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rpl_ekajaya/constants/routes.dart';
 
 class LoginScreen extends StatelessWidget {
   static const _logoStr = "assets/images/app_logo.png";
@@ -11,7 +12,6 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _mediaQueryH = MediaQuery.of(context).size.height;
-    final _mediaQueryW = MediaQuery.of(context).size.width;
 
     final _textFormFieldTextStyle = GoogleFonts.roboto(
       textStyle: const TextStyle(
@@ -20,10 +20,14 @@ class LoginScreen extends StatelessWidget {
         fontSize: 24,
       ),
     );
+
     final _loginButton = ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushNamed(context, mainPembeliRoute);
+      },
       child: const Text("Login"),
     );
+
     final _registerButton = TextButton(
       onPressed: () {
         Navigator.pushNamed(context, '/register');

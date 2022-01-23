@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rpl_ekajaya/constants/routes.dart';
+import 'package:rpl_ekajaya/screens/daftar_transaksi_screen.dart';
 import 'package:rpl_ekajaya/screens/login_screen.dart';
 import 'package:rpl_ekajaya/screens/main_screen.dart';
 import 'package:rpl_ekajaya/screens/register_screen.dart';
@@ -44,8 +45,8 @@ class MyApp extends StatelessWidget {
         ),
         padding: MaterialStateProperty.all(
           const EdgeInsets.symmetric(
-            vertical: 8,
-            horizontal: 8,
+            vertical: 16,
+            horizontal: 16,
           ),
         ),
         backgroundColor: MaterialStateProperty.all(
@@ -124,10 +125,11 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         // rootRoute: (context) => const LoginScreen(),
-        rootRoute: (context) => const MainScreen(isPenjual: true),
+        rootRoute: (context) => const DaftarTransaksiScreen(),
         registerRoute: (context) => const RegisterScreen(),
         mainPembeliRoute: (context) => const MainScreen(isPenjual: false),
         mainPenjualRoute: (context) => const MainScreen(isPenjual: true),
+        daftarTransaksiRoute: (context) => const DaftarTransaksiScreen(),
       },
     );
   }
