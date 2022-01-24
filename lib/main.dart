@@ -6,7 +6,6 @@ import 'package:rpl_ekajaya/screens/login_screen.dart';
 import 'package:rpl_ekajaya/screens/main_screen.dart';
 import 'package:rpl_ekajaya/screens/register_screen.dart';
 import 'package:rpl_ekajaya/screens/tambah_barang_screen.dart';
-import 'package:rpl_ekajaya/screens/ubah_barang_screen.dart';
 import 'package:rpl_ekajaya/screens/ubah_data_pengguna_screen.dart';
 
 void main() {
