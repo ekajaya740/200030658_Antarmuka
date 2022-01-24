@@ -165,42 +165,40 @@ class CariBarangScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                     horizontal: horizontalPadding,
                   ),
-                  child: Flexible(
-                    child: GridView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      gridDelegate:
-                          const SliverGridDelegateWithMaxCrossAxisExtent(
-                        mainAxisSpacing: 4,
-                        crossAxisSpacing: 4,
-                        maxCrossAxisExtent: 240,
-                        mainAxisExtent: 240,
-                      ),
-                      itemBuilder: (BuildContext context, int index) =>
-                          BarangCardWidget(
-                        nama: dataBarang[index].nama,
-                        harga: dataBarang[index].harga,
-                        image: dataBarang[index].uriImage,
-                        kategori: dataBarang[index].kategori,
-                        button: _button(
-                          type: 'Beli Barang',
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => BeliScreen(
-                                  namaBarang: dataBarang[index].nama,
-                                  hargaBarang: dataBarang[index].harga,
-                                  alamat: myData!.alamat,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                        isVisible: false,
-                      ),
-                      itemCount: dataBarang.length,
+                  child: GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                      mainAxisSpacing: 4,
+                      crossAxisSpacing: 4,
+                      maxCrossAxisExtent: 240,
+                      mainAxisExtent: 240,
                     ),
+                    itemBuilder: (BuildContext context, int index) =>
+                        BarangCardWidget(
+                      nama: dataBarang[index].nama,
+                      harga: dataBarang[index].harga,
+                      image: dataBarang[index].uriImage,
+                      kategori: dataBarang[index].kategori,
+                      button: _button(
+                        type: 'Beli Barang',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BeliScreen(
+                                namaBarang: dataBarang[index].nama,
+                                hargaBarang: dataBarang[index].harga,
+                                alamat: myData!.alamat,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      isVisible: false,
+                    ),
+                    itemCount: dataBarang.length,
                   ),
                 ),
               ],
