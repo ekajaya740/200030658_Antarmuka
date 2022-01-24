@@ -2,12 +2,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rpl_ekajaya/constants/routes.dart';
+import 'package:rpl_ekajaya/data/pengguna_data.dart';
 
-class RegisterScreen extends StatelessWidget {
-  static const _logoStr = "assets/images/app_logo.png";
+class RegisterScreen extends StatefulWidget {
   static const _horizontalPadding = 16.0;
 
   const RegisterScreen({Key? key}) : super(key: key);
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  String? _nama;
+  String? _email;
+  String? _noTelp;
+  String? _username;
+  String? _password;
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +36,26 @@ class RegisterScreen extends StatelessWidget {
 
     final _registerButton = ElevatedButton(
       onPressed: () {
-        Navigator.pushNamed(context, rootRoute);
+        if (_formKey.currentState!.validate()) {
+          setState(() {
+            listPengguna.add(
+              PenggunaData(
+                nama: _nama!,
+                email: _email!,
+                noTelp: _noTelp!,
+                username: _username!,
+                password: _password!,
+                alamat: 'Alamat',
+                namaToko: 'Nama Toko',
+                noRek: 'No Rekening',
+                isPenjual: false,
+                foto:
+                    'https://lh3.googleusercontent.com/M8AUbgTlaOl6gMTDHh0maDiUXiyKFGlOPjspVoPDTs_Cd5Xujttwk7lvi4FFkCJXREND3edb99cERHc4wKpP4tiGMMekH-_Eva_R9A=w600',
+              ),
+            );
+          });
+          Navigator.pushNamed(context, rootRoute);
+        }
       },
       child: const Text("Register"),
     );
@@ -44,8 +76,10 @@ class RegisterScreen extends StatelessWidget {
       String? hint,
       bool? obscure,
       TextInputType? textInputType,
+      String? Function(String?)? validator,
     }) {
       return TextFormField(
+        textInputAction: TextInputAction.next,
         textAlign: TextAlign.center,
         style: _textFormFieldTextStyle,
         decoration: InputDecoration(
@@ -53,6 +87,7 @@ class RegisterScreen extends StatelessWidget {
         ),
         keyboardType: textInputType,
         obscureText: obscure ?? false,
+        validator: validator,
       );
     }
 
@@ -80,14 +115,18 @@ class RegisterScreen extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: _horizontalPadding,
+                          horizontal: RegisterScreen._horizontalPadding,
                         ),
                         child: Form(
+                          key: _formKey,
                           child: Column(
                             children: [
                               _textFormField(
                                 hint: "Nama",
                                 textInputType: TextInputType.name,
+                                validator: (val) {
+                                  _nama = val!;
+                                },
                               ),
                               const SizedBox(
                                 height: 12,
@@ -95,6 +134,9 @@ class RegisterScreen extends StatelessWidget {
                               _textFormField(
                                 hint: "Email",
                                 textInputType: TextInputType.emailAddress,
+                                validator: (val) {
+                                  if (val!.isNotEmpty) _email = val;
+                                },
                               ),
                               const SizedBox(
                                 height: 12,
@@ -102,12 +144,18 @@ class RegisterScreen extends StatelessWidget {
                               _textFormField(
                                 hint: "No Telp",
                                 textInputType: TextInputType.phone,
+                                validator: (val) {
+                                  if (val!.isNotEmpty) _noTelp = val;
+                                },
                               ),
                               const SizedBox(
                                 height: 12,
                               ),
                               _textFormField(
                                 hint: "Username",
+                                validator: (val) {
+                                  if (val!.isNotEmpty) _username = val;
+                                },
                               ),
                               const SizedBox(
                                 height: 12,
@@ -116,6 +164,9 @@ class RegisterScreen extends StatelessWidget {
                                 hint: "Password",
                                 obscure: true,
                                 textInputType: TextInputType.visiblePassword,
+                                validator: (val) {
+                                  if (val!.isNotEmpty) _password = val;
+                                },
                               ),
                             ],
                           ),
@@ -123,7 +174,7 @@ class RegisterScreen extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: _horizontalPadding,
+                          horizontal: RegisterScreen._horizontalPadding,
                           vertical: 24,
                         ),
                         child: Column(

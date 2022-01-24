@@ -4,3 +4,4 @@ const String mainPembeliRoute = '/main_pembeli';
 const String mainPenjualRoute = '/main_penjual';
 const String daftarTransaksiRoute = '/daftar_transaksi';
 const String tambahBarangRoute = '/tambah_barang';
+const String ubahDataPenggunaRoute = '/ubah_data_pengguna';

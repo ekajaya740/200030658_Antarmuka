@@ -1,14 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rpl_ekajaya/constants/padding.dart';
 import 'package:rpl_ekajaya/constants/routes.dart';
+import 'package:rpl_ekajaya/data/pengguna_data.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   static const _logoStr = "assets/images/app_logo.png";
-  static const _horizontalPadding = 16.0;
 
   const LoginScreen({Key? key}) : super(key: key);
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  String? _username;
+  String? _password;
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final _mediaQueryH = MediaQuery.of(context).size.height;
@@ -23,7 +33,16 @@ class LoginScreen extends StatelessWidget {
 
     final _loginButton = ElevatedButton(
       onPressed: () {
-        Navigator.pushNamed(context, mainPembeliRoute);
+        if (_formKey.currentState!.validate()) {
+          for (var e in listPengguna) {
+            if (e.username == _username && e.password == _password) {
+              setState(() {
+                myData = e;
+              });
+              Navigator.pushNamed(context, mainPembeliRoute);
+            }
+          }
+        }
       },
       child: const Text("Login"),
     );
@@ -43,8 +62,10 @@ class LoginScreen extends StatelessWidget {
       String? hint,
       bool? obscure,
       TextInputType? textInputType,
+      String? Function(String?)? validator,
     }) {
       return TextFormField(
+        textInputAction: TextInputAction.next,
         textAlign: TextAlign.center,
         style: _textFormFieldTextStyle,
         decoration: InputDecoration(
@@ -52,6 +73,7 @@ class LoginScreen extends StatelessWidget {
         ),
         keyboardType: textInputType,
         obscureText: obscure ?? false,
+        validator: validator,
       );
     }
 
@@ -71,22 +93,31 @@ class LoginScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Image.asset(_logoStr),
+                      Image.asset(LoginScreen._logoStr),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: _horizontalPadding,
+                          horizontal: horizontalPadding,
                         ),
                         child: Form(
+                          key: _formKey,
                           child: Column(
                             children: [
-                              _textFormField(hint: "Username"),
+                              _textFormField(
+                                hint: "Username",
+                                validator: (val) {
+                                  if (val!.isNotEmpty) _username = val;
+                                },
+                              ),
                               const SizedBox(
                                 height: 12,
                               ),
                               _textFormField(
                                 hint: "Password",
                                 obscure: true,
-                                textInputType: TextInputType.emailAddress,
+                                textInputType: TextInputType.visiblePassword,
+                                validator: (val) {
+                                  if (val!.isNotEmpty) _password = val;
+                                },
                               ),
                             ],
                           ),
@@ -94,7 +125,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: _horizontalPadding,
+                          horizontal: horizontalPadding,
                         ),
                         child: Column(
                           children: [

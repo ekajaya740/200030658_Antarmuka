@@ -7,6 +7,7 @@ import 'package:rpl_ekajaya/screens/main_screen.dart';
 import 'package:rpl_ekajaya/screens/register_screen.dart';
 import 'package:rpl_ekajaya/screens/tambah_barang_screen.dart';
 import 'package:rpl_ekajaya/screens/ubah_barang_screen.dart';
+import 'package:rpl_ekajaya/screens/ubah_data_pengguna_screen.dart';
 
 void main() {
   runApp(
@@ -113,6 +114,15 @@ class MyApp extends StatelessWidget {
       ),
     );
 
+    final _switchTheme = SwitchThemeData(
+      thumbColor: MaterialStateProperty.all(
+        Colors.white,
+      ),
+      trackColor: MaterialStateProperty.all(
+        Colors.green.shade900,
+      ),
+    );
+
     return MaterialApp(
       title: 'Recycle Shop',
       theme: ThemeData(
@@ -123,16 +133,17 @@ class MyApp extends StatelessWidget {
         inputDecorationTheme: _inputDecorationTheme(),
         cardColor: Colors.green.shade900,
         cardTheme: _cardTheme,
+        switchTheme: _switchTheme,
         primarySwatch: Colors.green,
       ),
       routes: {
-        // rootRoute: (context) => const LoginScreen(),
-        rootRoute: (context) => const MainScreen(isPenjual: true),
+        rootRoute: (context) => const LoginScreen(),
         registerRoute: (context) => const RegisterScreen(),
         mainPembeliRoute: (context) => const MainScreen(isPenjual: false),
         mainPenjualRoute: (context) => const MainScreen(isPenjual: true),
         daftarTransaksiRoute: (context) => const DaftarTransaksiScreen(),
         tambahBarangRoute: (context) => const TambahBarangScreen(),
+        ubahDataPenggunaRoute: (context) => const UbahDataPenggunaScreen(),
       },
     );
   }

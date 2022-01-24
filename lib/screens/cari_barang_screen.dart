@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rpl_ekajaya/constants/padding.dart';
-import 'package:rpl_ekajaya/constants/routes.dart';
 import 'package:rpl_ekajaya/data/barang_data.dart';
 import 'package:rpl_ekajaya/data/pengguna_data.dart';
 import 'package:rpl_ekajaya/screens/beli_screen.dart';
@@ -11,7 +9,7 @@ import 'package:rpl_ekajaya/widgets/barang_card_widget.dart';
 class CariBarangScreen extends StatelessWidget {
   final bool isPenjual;
 
-  CariBarangScreen({
+  const CariBarangScreen({
     required this.isPenjual,
   });
   @override
@@ -193,7 +191,7 @@ class CariBarangScreen extends StatelessWidget {
                                 builder: (context) => BeliScreen(
                                   namaBarang: dataBarang[index].nama,
                                   hargaBarang: dataBarang[index].harga,
-                                  alamat: myData.alamat,
+                                  alamat: myData!.alamat,
                                 ),
                               ),
                             );

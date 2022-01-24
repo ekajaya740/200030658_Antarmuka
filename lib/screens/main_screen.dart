@@ -94,7 +94,9 @@ class _MainScreenState extends State<MainScreen> {
                 icon: const Icon(
                   Icons.account_circle,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, ubahDataPenggunaRoute);
+                },
               ),
         actions: _isDelete
             ? [
@@ -249,7 +251,9 @@ class _MainScreenState extends State<MainScreen> {
           icon: const Icon(
             Icons.account_circle,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, ubahDataPenggunaRoute);
+          },
         ),
       );
       final _search = TextField(
@@ -322,7 +326,7 @@ class _MainScreenState extends State<MainScreen> {
                                 builder: (context) => BeliScreen(
                                   namaBarang: dataBarang[index].nama,
                                   hargaBarang: dataBarang[index].harga,
-                                  alamat: myData.alamat,
+                                  alamat: myData!.alamat,
                                 ),
                               ),
                             );
